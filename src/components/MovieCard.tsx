@@ -1,6 +1,7 @@
 "use client"; // Necesario porque tiene interactividad (onClick)
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { apiClient } from '../services/api';
 
 interface MovieProps {
@@ -13,11 +14,13 @@ interface MovieProps {
     stars: number;
   };
   // Para simplificar, hardcodeamos un usuario de prueba (ID 1)
-  userId?: number; 
+  userId?: number;
+  isFavoriteInitial?: boolean; // Para indicar si ya es favorito
 }
 
-export default function MovieCard({ movie, userId = 1 }: MovieProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
+export default function MovieCard({ movie, userId = 1, isFavoriteInitial = false }: MovieProps) {
+  const [isFavorite, setIsFavorite] = useState(isFavoriteInitial);
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const toggleFavorite = async () => {
@@ -40,8 +43,17 @@ export default function MovieCard({ movie, userId = 1 }: MovieProps) {
     }
   };
 
+  const handleCardClick = () => {
+    router.push(`/movie/${movie.id}`);
+  };
+
   return (
-    <div style={{ backgroundColor: 'var(--card-bg)', borderRadius: '8px', padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+    <div 
+      style={{ backgroundColor: 'var(--card-bg)', borderRadius: '8px', padding: '1.5rem', display: 'flex', flexDirection: 'column', cursor: 'pointer', transition: 'transform 0.2s, box-shadow 0.2s' }}
+      onClick={handleCardClick}
+      onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+    >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <h2 style={{ margin: '0 0 0.5rem 0', fontSize: '1.25rem' }}>{movie.title}</h2>
         <span style={{ backgroundColor: 'var(--accent)', color: '#000', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold', fontSize: '0.875rem' }}>
@@ -57,22 +69,7 @@ export default function MovieCard({ movie, userId = 1 }: MovieProps) {
         {movie.description}
       </p>
 
-      <button 
-        onClick={toggleFavorite}
-        disabled={loading}
-        style={{
-          backgroundColor: isFavorite ? 'transparent' : 'var(--primary)',
-          color: isFavorite ? 'var(--primary)' : 'white',
-          border: `2px solid var(--primary)`,
-          padding: '0.75rem',
-          borderRadius: '6px',
-          cursor: loading ? 'not-allowed' : 'pointer',
-          fontWeight: 'bold',
-          transition: 'all 0.2s'
-        }}
-      >
-        {loading ? 'Cargando...' : isFavorite ? '❤️ Quitar de Favoritos' : '🤍 Agregar a Favoritos'}
-      </button>
+      
     </div>
   );
 }

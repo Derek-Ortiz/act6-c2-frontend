@@ -16,14 +16,14 @@ export default function Favorites() {
       setUser(parsedUser);
       fetchFavorites(parsedUser.id);
     } else {
-      window.location.href = '/login'; // Proteger ruta
+      window.location.href = '/login'; 
     }
   }, []);
 
   const fetchFavorites = async (userId: number) => {
     try {
       const response = await apiClient.get(`/favorites/${userId}`);
-      // El backend devuelve los datos combinados de la tabla movies y favorites
+      
       setMovies(response.data.data);
     } catch (err) {
       console.error(err);
@@ -42,8 +42,8 @@ export default function Favorites() {
       ) : (
         <div className="grid">
           {movies.map((movie) => (
-            // Pasamos un prop extra para indicar que ya es favorito en esta vista
-            <MovieCard key={movie.id} movie={movie} userId={user.id} />
+            
+            <MovieCard key={movie.id} movie={movie} userId={user.id} isFavoriteInitial={true} />
           ))}
         </div>
       )}

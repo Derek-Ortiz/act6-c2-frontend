@@ -1,4 +1,4 @@
-"use client"; // Lo hacemos client component para poder leer el localStorage
+"use client";
 
 import './globals.css';
 import Link from 'next/link';
@@ -8,7 +8,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const [user, setUser] = useState<{name: string} | null>(null);
 
   useEffect(() => {
-    // Revisamos si hay un usuario logueado en el navegador
     const storedUser = localStorage.getItem('soa_user');
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
@@ -22,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <body>
         <header style={{ padding: '1.5rem 2rem', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1 style={{ margin: 0 }}>🎬 Movie App SOA</h1>
+          <h1 style={{ margin: 0 }}>Movie App </h1>
           <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
             <Link href="/" style={{ color: 'var(--foreground)', textDecoration: 'none' }}>Inicio</Link>
             {user ? (

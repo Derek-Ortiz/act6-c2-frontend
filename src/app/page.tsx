@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { apiClient } from '../services/api';
 import MovieCard from '../components/MovieCard';
 
-// Reutilizamos la interfaz
 interface Movie {
   id: number;
   title: string;
@@ -22,7 +21,7 @@ export default function Home() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        // Llamamos a nuestro propio Backend (SOA), no a la API externa directamente
+        
         const response = await apiClient.get('/movies');
         setMovies(response.data.data);
       } catch (err) {

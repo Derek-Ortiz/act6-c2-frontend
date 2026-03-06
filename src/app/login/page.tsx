@@ -16,9 +16,9 @@ export default function Login() {
       const response = await apiClient.post(endpoint, formData);
       
       if (response.data.success) {
-        // Guardamos la sesión en el navegador
+       
         localStorage.setItem('soa_user', JSON.stringify(response.data.data));
-        window.location.href = '/'; // Redirigimos al inicio
+        window.location.href = '/'; 
       }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Error al procesar la solicitud');

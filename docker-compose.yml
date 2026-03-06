@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://localhost:4000/api/v1
+      - NEXT_PUBLIC_BACKEND_URL= ${NEXT_PUBLIC_BACKEND_URL}
     depends_on: []
     networks:
       - soa_shared_network
