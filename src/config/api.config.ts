@@ -8,7 +8,6 @@ const toBoolean = (value: string | undefined, fallback: boolean): boolean => {
   return value.toLowerCase() === 'true';
 };
 
-// Configuración centralizada de la API
 export const API_CONFIG = {
   BASE_URL: process.env.API_BASE_URL || 'https://devsapihub.com/api-movies',
   TIMEOUT: toNumber(process.env.API_TIMEOUT, 10000), // 10 segundos

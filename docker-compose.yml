@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   frontend:
@@ -9,8 +8,11 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://localhost:4000 
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:4000/api/v1
+    depends_on: []
     networks:
       - soa_shared_network
 
