@@ -186,10 +186,7 @@ export default function MovieDetail() {
             <h1 style={{ 
               margin: '0 0 0.5rem 0', 
               fontSize: '2.5rem',
-              background: 'linear-gradient(90deg, var(--primary), var(--accent))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
+              color: 'var(--primary)'
             }}>
               {movie.title}
             </h1>
@@ -238,7 +235,7 @@ export default function MovieDetail() {
         {/* Divider */}
         <div style={{ 
           height: '2px', 
-          background: 'linear-gradient(90deg, var(--primary), var(--accent), transparent)',
+          backgroundColor: 'var(--primary)',
           marginBottom: '2rem',
           borderRadius: '1px'
         }} />
